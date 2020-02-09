@@ -6,12 +6,12 @@ public class BubbleSort {
     public static void main(String[] args) {
         int[] arrInput = {3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 48};
 //        method1(arrInput);
-        method2(arrInput);
+        optimizedMethod(arrInput);
     }
 
-    private static void method2(int[] arrInput) {
+    private static void optimizedMethod(int[] arrInput) {
         int length = arrInput.length;
-        boolean swapped = true;
+        boolean swapped;
         do {
             swapped = false;
             int alreadySorted = 1;

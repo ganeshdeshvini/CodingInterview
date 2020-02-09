@@ -4,33 +4,42 @@ import java.util.Arrays;
 
 public class MergeSortedArrays {
     public static void main(String[] args) {
-        int[] arr1 = {0, 3, 4, 31};
-        int[] arr2 = {4, 6, 30};
-
-        merge2sortedArrays(arr1, arr2);
+        int[] arrLeft = {0, 3, 4, 31};
+        int[] arrRight = {4, 6, 30};
+        merge2sortedArrays(arrLeft, arrRight);
     }
 
-    private static void merge2sortedArrays(int[] arrFirst, int[] arrSecond) {
-        int index = 0;
-        int arrFirstLength = arrFirst.length;
-        int arrSecondLength = arrSecond.length;
-        int[] arrMerged = new int[arrFirstLength + arrSecondLength];
+    private static void merge2sortedArrays(int[] arrLeft, int[] arrRight) {
+        int leftLength = arrLeft.length;
+        int rightLength = arrRight.length;
+        int[] arrSorted = new int[leftLength + rightLength];
 
-        int arrFirstIndex = 0;
-        int arrSecondIndex = 0;
-        while (arrFirstIndex <= arrFirstLength - 1 || arrSecondIndex <= arrSecondLength - 1) {
-            if (isSecondArrayFinished(arrSecondLength, arrSecondIndex) || arrFirst[arrFirstIndex] <= arrSecond[arrSecondIndex]) {
-                arrMerged[index++] = arrFirst[arrFirstIndex];
-                arrFirstIndex++;
+        int sortedIndex = 0;
+        int leftIndex = 0;
+        int rightIndex = 0;
+        while (leftIndex < leftLength || rightIndex < rightLength) {
+            // If Left array is finished then skip & move to else part
+            // If right array is finished OR If Left is less than right
+            if (!isLeftArrayCompleted(leftIndex, leftLength) && (isRightArrayCompleted(rightIndex, rightLength) || arrLeft[leftIndex] < arrRight[rightIndex])) {
+                arrSorted[sortedIndex++] = arrLeft[leftIndex];
+                leftIndex++;
             } else {
-                arrMerged[index++] = arrSecond[arrSecondIndex];
-                arrSecondIndex++;
+                arrSorted[sortedIndex++] = arrRight[rightIndex];
+                rightIndex++;
             }
         }
-        System.out.println(Arrays.toString(arrMerged));
+        System.out.println(Arrays.toString(arrSorted));
     }
 
-    private static boolean isSecondArrayFinished(int arrSecondLength, int arrSecondIndex) {
-        return arrSecondIndex >= arrSecondLength;
+    private static boolean isLeftArrayCompleted(int leftIndex, int leftLength) {
+        return isArrayCompleted(leftIndex, leftLength);
+    }
+
+    private static boolean isRightArrayCompleted(int rightIndex, int rightLength) {
+        return isArrayCompleted(rightIndex, rightLength);
+    }
+
+    private static boolean isArrayCompleted(int index, int length) {
+        return index >= length;
     }
 }
